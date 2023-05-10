@@ -1,0 +1,45 @@
+{
+    sDTI: "/package/catharsys/template/action:1.0",
+    sName: "Standard Python Action Template",
+    sVersion: "1.0.1",
+    lVars: [
+        {
+            sName: "Namespace",
+            mFoldernames: {
+                sReSearch: "_ext_",
+                // Use '\\0' to indicate the placement of the user provided value.
+                // Use ' \\1' etc. to place captures of sReSearch.
+                sReReplace: "\\0",
+            },
+            mFilenames: {},
+            lFileContent: [
+                {
+                    lReFiles: ["setup\\.cfg"],
+                    sReSearch: "_ext_",
+                    sReReplace: "\\0",
+                },
+            ],
+        },
+        {
+            sName: "Name",
+            mFoldernames: {},
+            mFilenames: {
+                sReSearch: "(.*)example(.*)\\.py",
+                sReReplace: "\\1\\0\\2.py",
+            },
+            lFileContent: [
+                {
+                    lReFiles: ["setup\\.cfg", ".+\\.py"],
+                    sReSearch: "example",
+                    sReReplace: "\\0",
+                },
+                {
+                    lReFiles: [".+\\.py"],
+                    sReSearch: "CExample",
+                    sReReplace: "C\\0",
+                    sValueKind: "python/class",
+                },
+            ],
+        },
+    ],
+}

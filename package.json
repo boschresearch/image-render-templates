@@ -1,0 +1,10 @@
+{
+    "sDTI": "/package/catharsys/templates:1.0",
+    "sName": "Standard Templates",
+    "sVersion": "1.1.0",
+    "lTemplateFolders": [
+        "std-action-python",
+        "workspace-just-render",
+        "workspace-std"
+    ]
+}

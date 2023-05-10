@@ -1,0 +1,94 @@
+
+// <LICENSE id="CC BY 4.0">
+//
+//   Image-Render Workspace 'simple'
+//   Copyright 2022 Robert Bosch GmbH and its subsidiaries
+//   
+//   This work is licensed under the 
+//   
+//       Creative Commons Attribution 4.0 International License.
+//   
+//   To view a copy of this license, visit 
+//       http://creativecommons.org/licenses/by/4.0/ 
+//   or send a letter to 
+//       Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+//   
+//
+// </LICENSE>
+{
+    // This "Data Type Identifier" determines which executor to use to run
+    // the associated action, specified in "launch.json5".
+    // In this case the executor starts Blender and then executes the action
+    // script from within Blender.
+    sDTI: "/catharsys/exec/blender/std:2.1",
+    // This is the configuration file id. It uses the basename of this file
+    // as identifier, which in this case is "exec".
+    sId: "${filebasename}",
+
+    // The following "__platform__" block allows you to overwrite or add
+    // any value to this configuration, depending on the current platform and
+    // compute node. 
+    // In this example, the "sDTI" is overwritten depending on the OS type
+    // "Windows" or "Linux" and for "Linux" also the node name "hi-025l".
+    // On Windows Blender is called directly, while
+    // on the Linux machine with name 'hi-025l' it uses the LSF job distribution
+    // system to start the Blender renders.
+    // Note that there are also additional parameters added for the LSF job.
+    __platform__: {
+        Windows: {
+            __data__: {
+                sDTI: "/catharsys/exec/blender/std:2.1"
+            }
+        },
+        Linux: {
+            "hi-025l": {
+                __data__: {
+                    // Use the LSF job distribution system (must be installed on system)
+                    sDTI: "/catharsys/exec/blender/lsf:2.1",
+                    // A list of modules to load
+                    lModules: ["cuda"],
+                    // Number of GPU cores to use per job
+                    iJobGpuCores: 1,
+                    // Maximal time in minutes per job
+                    iJobMaxTime: 800,
+                    // Maximal allowes memory per job in GB
+                    iJobMemReqGb: 10,
+                    // Name of the job queue to use
+                    // sJobQueue: "rb_regular",
+                    // Flag whether to use the "new" LSF syntax
+                    iLsbGpuNewSyntax: 1
+                }
+            }
+        }
+    },
+
+    mBlender: {
+        sDTI: "/catharsys/blender:1.0",
+        sVersion: "3.3",
+
+        mSettings: {
+            sDTI: "/catharsys/blender/settings:1.0",
+        
+            lAddOns: [
+                // Catharsys modules as Blender addons
+                // { "sName": "anycam", "sType": "MODULE" },
+                // { "sName": "anytruth", "sType": "MODULE" },
+
+                // Add your own Blender add-on from some path to the Blender install
+                // based on the platform and machine you are working on.
+                // { 
+                //     "sName": "[add-on name]", 
+                //     "sType": "FOLDER", 
+                //     "sPath": "[path to the addon]",
+                //     "mPreferences": {
+                //         "[add-on parameter name]": "[value]",
+                //     }
+                // }
+            ],
+        }
+    },
+
+}
+
+
+
