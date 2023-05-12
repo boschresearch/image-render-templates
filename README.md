@@ -1,6 +1,10 @@
 # Templates for the `image-render` automation system
 
+**Check out the `stable` branch for the latest stable version**
+
 This repository contains templates, which you can create using the command `cathy install template [the template]` from an image-render environment. To list the available templates run `cathy install template --list`.
+
+See the repository `image-render-setup` for more information and documentation on the `image-render` automation system.
 
 ## Purpose of the project
 
