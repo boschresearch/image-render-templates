@@ -64,7 +64,7 @@ def _Metric2BlenderScale(_sUnit: str):
 #          For your own modifier, the dictionary '_dicMod' can contain anything you like.
 
 
-def Example(_objX, _dicMod, **kwargs):
+def Example(_objX: bpy.types.Object, _dicMod: dict, **kwargs):
     sUnit: str = convert.DictElementToString(_dicMod, "sUnit", "m")
     lPos: list[float] = convert.DictElementToFloatList(_dicMod, "lPosition", iLen=3)
 
