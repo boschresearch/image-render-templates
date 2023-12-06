@@ -4,6 +4,7 @@
     "sVersion": "1.1.4",
     "lTemplateFolders": [
         "std-action-python",
+        "std-modifier-blender",
         "workspace-just-render",
         "workspace-std"
     ]
