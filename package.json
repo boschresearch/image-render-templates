@@ -1,7 +1,7 @@
 {
     "sDTI": "/package/catharsys/templates:1.0",
     "sName": "Standard Templates",
-    "sVersion": "1.1.4",
+    "sVersion": "1.1.5",
     "lTemplateFolders": [
         "std-action-python",
         "std-modifier-blender",
