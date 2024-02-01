@@ -30,20 +30,15 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import json
 from pathlib import Path
-from anybase import file as anyfile
+from catharsys.setup.repos import GetRepoVersion
 
-pathSetup = Path(__file__).parent.parent.parent
-pathPkg = pathSetup / "package.json"
-if not pathPkg.exists():
-    raise RuntimeError(f"File 'package.json' not found at: {(pathPkg.as_posix())}")
-# endif
+pathModule = Path(__file__).parent.parent.parent
+sVersion, sModuleType = GetRepoVersion(pathModule=pathModule)
 
-dicPkg: dict = anyfile.LoadJson(pathPkg)
-sVersion = dicPkg.get("sVersion")
-if not isinstance(sVersion, str):
-    raise RuntimeError(f"Element 'sVersion' not found in file: {(pathPkg.as_posix())}")
-# endif
+pathSetup = pathModule.parent.parent
+pathDocsSrcMain = pathSetup / "docs" / "source"
 
 
 # -- Project information -----------------------------------------------------
@@ -98,3 +93,20 @@ html_theme = "sphinx_book_theme"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
+
+intersphinx_mapping = {}
+
+pathConfig = pathDocsSrcMain / "auto_config.json"
+if pathConfig.exists():
+    with pathConfig.open("r") as xFile:
+        dicConfig = json.load(xFile)
+    # endwith
+
+    lModules = dicConfig["lModules"]
+    for sModule in lModules:
+        intersphinx_mapping[sModule] = (
+            f"../../{sModule}/html",
+            f"../../../../docs/build/{sModule}/html/objects.inv",
+        )
+    # endfor
+# endif
