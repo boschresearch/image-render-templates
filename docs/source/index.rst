@@ -13,6 +13,7 @@ Catharsys Templates
    install
    lnk-std-action-python
    license
+   back-to-main
 
 
 .. Indices and tables
